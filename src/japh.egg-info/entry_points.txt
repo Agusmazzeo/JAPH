@@ -1,3 +1,0 @@
-[console_scripts]
-japh = japh.main:start_app
-
