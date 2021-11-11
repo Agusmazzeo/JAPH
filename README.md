@@ -8,7 +8,13 @@
 
 ## How to start (and end)?
 
-We only need _.yaml_ file to set up everything and start working:
+First, let's install the helper:
+
+```
+python3 -m pip install git+https://github.com/Agusmazzeo/JAPH.git@master
+```
+
+We only need a _config.yaml_ file to set up everything and start working:
 
 ```yaml
 projects:

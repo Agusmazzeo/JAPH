@@ -18,9 +18,9 @@ def up(
     service_type: str = typer.Option(help="Services' type to set up", default=None),
     attached: bool = typer.Option(help="Flag for creating containers attached to shell execution", default=False),
     background: bool = typer.Option(help="Flag for setting on service's logs", default=False),
-    file_dir: str = typer.Option(help="Config file path", default=False) 
+    file_dir: str = typer.Option(help="Config file path", default="config.yaml") 
 ):
-    config = YAMLReader(file_dir or "config.yaml")
+    config = YAMLReader(file_dir)
     projects_conf = config.config_data.projects
     if projects_conf == None:
         raise IncompleteConfigFile()
@@ -46,10 +46,10 @@ def up(
 
 @app.command()
 def down(
-    file_dir: str = typer.Option(help="Config file path", default=False) 
+    file_dir: str = typer.Option(help="Config file path", default="config.yaml") 
 ):
     print(f"Shutting down every service\n")
-    config = YAMLReader(file_dir or "config.yaml")
+    config = YAMLReader(file_dir)
     CommandExecutor.kill_docker_services(config.docker_files)
 
 def start_app():
