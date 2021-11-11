@@ -1,0 +1,62 @@
+projects:
+  - title: OpsConsole
+    description: Operations console BE and DBs. UI is too heavy to be processed inside a container (its slow)
+    services:
+      - name: opsconsole_ui
+        type: UI
+        # pre_start:
+        #   - rm -rf node_modules/
+        #   - npm install
+        command: ng serve admin -c=am
+        volume: /Users/asmazzeo/Documents/Examity/OpsConsole.UI/
+
+      - name: examity_api
+        type: BE
+
+      - name: test_db
+        type: DB
+
+  - title: NPUI
+    description: New proctoring BE.
+    services:
+      - name: test-taker-ui
+        type: UI
+        command: ng serve -c=yd
+        volume: /Users/asmazzeo/Documents/Examity/test-taker-ui
+
+      - name: sts
+        type: BE
+
+      - name: v5-api
+        type: BE
+
+      - name: sso
+        type: BE
+
+      - name: proctoring-api
+        type: BE
+
+      - name: test_db
+        type: DB
+
+  - title: OPUI
+    description: Old proctoring UI and BE
+    services:
+      - name: proctoring-ui
+        type: UI
+        pre_start:
+          - npm install
+        command: ng serve -c=tj --port=4201
+        volume: /Users/asmazzeo/Documents/Examity/MultiTenant/Application/Examity.ProctoringUI/proctoring
+
+      - name: examity-ui
+        type: UI
+        command: npm run start
+        volume: /Users/asmazzeo/Documents/Examity/MultiTenant/Application/Examity.UI
+
+      - name: proctoring-api
+        type: BE
+
+docker_compose_files:
+  - /Users/asmazzeo/Documents/Examity/ExamityService/OpsConsole/docker/docker-compose.yml
+  - /Users/asmazzeo/Documents/Examity/ExamityService/NPUI/docker/docker-compose.yml
