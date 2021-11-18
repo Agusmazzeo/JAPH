@@ -361,3 +361,7 @@ venv/
 
 # .egg-info files
 *.egg-info
+
+# build files
+build/*
+.pyc

@@ -1,5 +1,6 @@
 #!./venv/bin/python3
-import os
+from typing import List, Optional
+
 import typer
 
 from japh.reader.yaml_reader import YAMLReader
@@ -14,11 +15,11 @@ app = typer.Typer(help="Hi Im Just Another Project Handler!")
 @app.command()
 def up(
     project: str,
-    service_name: str = typer.Option(help="Service name to set up", default=None),
-    service_type: str = typer.Option(help="Services' type to set up", default=None),
-    attached: bool = typer.Option(help="Flag for creating containers attached to shell execution", default=False),
-    background: bool = typer.Option(help="Flag for setting on service's logs", default=False),
-    file_dir: str = typer.Option(help="Config file path", default="config.yaml") 
+    service_name: Optional[List[str]] = typer.Option(help="Service name to set up", default=None),
+    service_type: Optional[List[str]] = typer.Option(help="Services' type to set up", default=None),
+    attached: Optional[bool] = typer.Option(help="Flag for creating containers attached to shell execution", default=False),
+    background: Optional[bool] = typer.Option(help="Flag for setting on service's logs", default=False),
+    file_dir: Optional[str] = typer.Option(help="Config file path", default="config.yaml") 
 ):
     config = YAMLReader(file_dir)
     projects_conf = config.config_data.projects
@@ -46,7 +47,7 @@ def up(
 
 @app.command()
 def down(
-    file_dir: str = typer.Option(help="Config file path", default="config.yaml") 
+    file_dir: Optional[str] = typer.Option(help="Config file path", default="config.yaml") 
 ):
     print(f"Shutting down every service\n")
     config = YAMLReader(file_dir)

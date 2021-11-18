@@ -32,32 +32,33 @@ class YAMLReader:
     def get_docker_services(
         self,
         project: str,
-        service_type: Optional[str],
-        service_name: Optional[str]
+        service_type: Optional[List[str]] = None,
+        service_name: Optional[List[str]] = None
     ) -> List[str]:
         project_list = self.get_project_list(project)
         docker_services = " ".join(
             [
                 service.name for service in project_list[0].services
                 if service.command is None and 
-                (service.type == service_type or service_type is None) and
-                (service.name == service_name or service_name is None)
+                (service_type is None or len(service_type)==0 or service.type in service_type) and
+                (service_name is None or len(service_name)==0 or service.name in service_name)
             ]
         )
+
         return docker_services
     
     def get_shell_services(
         self,
         project: str,
-        service_type: Optional[str],
-        service_name: Optional[str]
+        service_type: Optional[List[str]] = None,
+        service_name: Optional[List[str]] = None
     ) -> List[Service]:
         project_list = self.get_project_list(project)
         shell_services = [
             service for service in project_list[0].services 
             if service.command is not None and
-            (service.type == service_type or service_type is None) and
-                (service.name == service_name or service_name is None)
+                (service_type is None or len(service_type)==0 or service.type in service_type) and
+                (service_name is None or len(service_name)==0 or service.name in service_name)
         ]
         return shell_services
 
