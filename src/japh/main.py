@@ -63,5 +63,26 @@ def start_app():
         logger.error(f"Given config file is incomplete or has a wrong format.")
 
 
+@app.command()
+def restart(
+    project: str,
+    service_name: Optional[List[str]] = typer.Option(help="Service name to set up", default=None),
+    file_dir: Optional[str] = typer.Option(help="Config file path", default="config.yaml") 
+):
+    config = YAMLReader(file_dir)
+    projects_conf = config.config_data.projects
+    if projects_conf == None:
+        raise IncompleteConfigFile()
+
+    docker_services_names = config.get_docker_services(project, service_name=service_name)
+    print(f"Restarting services for project {project}: {docker_services_names}\n")
+    if docker_services_names != "":
+        CommandExecutor.restart_docker_services(
+            docker_compose_files=config.docker_files,
+            services=docker_services_names
+        )
+    if docker_services_names == "":
+        print("There are no configured services with given values. Try again!")
+
 if __name__ == "__main__":
     start_app()

@@ -20,6 +20,17 @@ class CommandExecutor:
                 "docker-compose -f " + " -f ".join(docker_compose_files) + " logs -f",
                 shell=True, 
             )
+
+
+    @staticmethod
+    def restart_docker_services(
+        docker_compose_files: List[str],
+        services: str   
+    ):
+        command = "docker-compose -f " + " -f ".join(docker_compose_files)
+        action = " restart "
+        subprocess.call( command + action + services, shell=True)
+
     
     @staticmethod
     def kill_docker_services(
