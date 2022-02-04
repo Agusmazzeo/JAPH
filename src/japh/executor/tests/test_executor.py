@@ -1,11 +1,11 @@
 from unittest.mock import patch, call
 
 from japh.utils.models.config import Service
-from executor.executor import CommandExecutor
+from japh.executor.executor import CommandExecutor
 
 class TestCommandExecutor:
 
-    @patch("executor.executor.subprocess")
+    @patch("japh.executor.executor.subprocess")
     def test_set_up_docker_services_default(
         self,
         mock_subprocess
@@ -29,7 +29,7 @@ class TestCommandExecutor:
 
         assert mock_subprocess.mock_calls == expected_calls
 
-    @patch("executor.executor.subprocess")
+    @patch("japh.executor.executor.subprocess")
     def test_set_up_docker_services_attached(
         self,
         mock_subprocess
@@ -53,7 +53,7 @@ class TestCommandExecutor:
         
         assert mock_subprocess.mock_calls == expected_calls
 
-    @patch("executor.executor.subprocess")
+    @patch("japh.executor.executor.subprocess")
     def test_set_up_docker_services_backgroung(
         self,
         mock_subprocess
@@ -77,7 +77,7 @@ class TestCommandExecutor:
         
         assert mock_subprocess.mock_calls == expected_calls
 
-    @patch("executor.executor.subprocess")
+    @patch("japh.executor.executor.subprocess")
     def test_kill_docker_services(
         self,
         mock_subprocess
@@ -89,7 +89,7 @@ class TestCommandExecutor:
         docker_compose_files = ["docker1", "docker2"]
 
         CommandExecutor.kill_docker_services(
-            docker_compose_files=docker_compose_files
+            docker_compose_files=docker_compose_files, all_flag=True
         )
 
         expected_calls = [
@@ -98,7 +98,7 @@ class TestCommandExecutor:
         
         assert mock_subprocess.mock_calls == expected_calls
 
-    @patch("executor.executor.subprocess")
+    @patch("japh.executor.executor.subprocess")
     def test_set_shell_services(
         self,
         mock_subprocess

@@ -79,15 +79,20 @@ $ japh [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-- `down`
 - `up`
+- `down`
+- `restart`
+- `recreate`
+- `build`
+
+---
 
 ## `japh up`
 
 **Usage**:
 
 ```console
-$ japh up [OPTIONS] PROJECT
+$ japh up PROJECT [OPTIONS]
 ```
 
 **Arguments**:
@@ -96,12 +101,14 @@ $ japh up [OPTIONS] PROJECT
 
 **Options**:
 
-- `--service-name TEXT`: Service name to set up
-- `--service-type TEXT`: Services' type to set up
+- `--name TEXT`: Services' name to set up
+- `--type TEXT`: Services' type to set up
 - `--attached / --no-attached`: Flag for creating containers attached to shell execution [default: False]
 - `--background / --no-background`: Flag for setting on service's logs [default: False]
 - `--file-dir TEXT`: Config file path [default: False]
 - `--help`: Show this message and exit.
+
+---
 
 ## `japh down`
 
@@ -113,5 +120,66 @@ $ japh down [OPTIONS]
 
 **Options**:
 
+- `--file-dir TEXT`: Config file path [default: False]
+- `--help`: Show this message and exit.
+
+---
+
+## `japh restart`
+
+**Usage**:
+
+```console
+$ japh restart PROJECT [OPTIONS]
+```
+
+**Arguments**:
+
+- `PROJECT`: [required]
+
+**Options**:
+
+- `--name TEXT`: Service name to set up
+- `--file-dir TEXT`: Config file path [default: False]
+- `--help`: Show this message and exit.
+
+---
+
+## `japh recreate`
+
+**Usage**:
+
+```console
+$ japh recreate PROJECT [OPTIONS]
+```
+
+**Arguments**:
+
+- `PROJECT`: [required]
+
+**Options**:
+
+- `--name TEXT`: Service name to set up
+- `--file-dir TEXT`: Config file path [default: False]
+- `--help`: Show this message and exit.
+
+---
+
+## `japh build`
+
+**Usage**:
+
+```console
+$ japh recreate PROJECT [OPTIONS]
+```
+
+**Arguments**:
+
+- `PROJECT`: [required]
+
+**Options**:
+
+- `--name TEXT`: Service name to set up
+- `--no-cache BOOL`: Flag to indicate if cached information must be used during build.
 - `--file-dir TEXT`: Config file path [default: False]
 - `--help`: Show this message and exit.

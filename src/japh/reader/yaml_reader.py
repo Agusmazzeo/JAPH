@@ -29,12 +29,12 @@ class YAMLReader:
             raise RepeatedProjectName()
         return project_list
 
-    def get_docker_services(
+    def get_docker_services_names(
         self,
         project: str,
         service_type: Optional[List[str]] = None,
         service_name: Optional[List[str]] = None
-    ) -> List[str]:
+    ) -> str:
         project_list = self.get_project_list(project)
         docker_services = " ".join(
             [
