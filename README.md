@@ -6,9 +6,9 @@
 
 ---
 
-## How to start (and end)?
+## How to start?
 
-First, let's install the helper:
+First, let's install the helper. You will need Python 3.6 or newer:
 
 ```
 python3 -m pip install git+https://github.com/Agusmazzeo/JAPH.git@master
@@ -139,7 +139,7 @@ $ japh restart PROJECT [OPTIONS]
 
 **Options**:
 
-- `--name TEXT`: Service name to set up
+- `--name TEXT`: Service name to restart (docker restart, not destroy)
 - `--file-dir TEXT`: Config file path [default: False]
 - `--help`: Show this message and exit.
 
@@ -159,7 +159,7 @@ $ japh recreate PROJECT [OPTIONS]
 
 **Options**:
 
-- `--name TEXT`: Service name to set up
+- `--name TEXT`: Service name to recreate (destroy and set up again)
 - `--file-dir TEXT`: Config file path [default: False]
 - `--help`: Show this message and exit.
 
@@ -179,7 +179,7 @@ $ japh recreate PROJECT [OPTIONS]
 
 **Options**:
 
-- `--name TEXT`: Service name to set up
+- `--name TEXT`: Service name to build
 - `--no-cache BOOL`: Flag to indicate if cached information must be used during build.
 - `--file-dir TEXT`: Config file path [default: False]
 - `--help`: Show this message and exit.
