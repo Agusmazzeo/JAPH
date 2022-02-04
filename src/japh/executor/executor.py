@@ -35,8 +35,29 @@ class CommandExecutor:
     @staticmethod
     def kill_docker_services(
         docker_compose_files: List[str],
+        service_names: Optional[List[str]] = None,
+        all_flag: Optional[bool] = False
     ):
-        subprocess.call("docker-compose -f " + " -f ".join(docker_compose_files) + " down", shell=True)
+        if all_flag and service_names is None:
+            command = " down"
+        else:
+            command = " kill " + " ".join(service_names)
+        subprocess.call("docker-compose -f " + " -f ".join(docker_compose_files) + command, shell=True)
+
+
+    @staticmethod
+    def build_docker_services(
+        docker_compose_files: List[str],
+        service_names: Optional[List[str]] = None,
+        no_cache: Optional[bool] = False
+    ):
+        command = " build "
+        if no_cache:
+            command = command + " --no-cache "
+
+        command = command + " ".join(service_names)
+        subprocess.call("docker-compose -f " + " -f ".join(docker_compose_files) + command, shell=True)
+
 
     @staticmethod
     def set_up_shell_services(
